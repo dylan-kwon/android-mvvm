@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.screen.main.MainActivity">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dylan.kwon.mvvm.ui.screen.main.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <dylan.kwon.mvvm.util.base.view.BaseTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/app_name"
+            android:textColor="@color/color_ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/color_ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.intentRecyclerView()}"
+                    android:text="@string/recycler_view"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.intentViewPager()}"
+                    android:text="@string/view_pager"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.intentFragment()}"
+                    android:text="@string/fragment"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.showDialog()}"
+                    android:text="@string/dialog"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_bottom_sheet_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.showBottomSheetDialog()}"
+                    android:text="@string/bottom_sheet_dialog"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_toast"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.showToast()}"
+                    android:text="@string/toast"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+                <dylan.kwon.mvvm.util.base.view.BaseButton
+                    android:id="@+id/bt_snackbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bt_primary"
+                    android:onClick="@{() -> viewModel.showSnackbar()}"
+                    android:text="@string/snackbar"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="dylan.kwon.mvvm.ui.dialog.popup.PopupViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical"
+        tools:layout_gravity="bottom">
+
+        <dylan.kwon.mvvm.util.base.view.BaseTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/color_ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TITLE" />
+
+        <dylan.kwon.mvvm.util.base.view.BaseTextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4.5dp"
+            android:minHeight="100dp"
+            android:padding="15dp"
+            android:text="@{viewModel.description}"
+            android:textColor="@color/color_000000"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="DESCRIPTION.." />
+
+        <dylan.kwon.mvvm.util.base.view.BaseButton
+            android:id="@+id/bt_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bt_transparent_primary"
+            android:onClick="@{() -> viewModel.startPositiveEvent()()}"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            android:text="@{viewModel.positive}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.positive.isEmpty() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            tools:text="확인" />
+
+        <dylan.kwon.mvvm.util.base.view.BaseButton
+            android:id="@+id/bt_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/bt_transparent_primary"
+            android:onClick="@{() -> viewModel.startNegativeEvent()}"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            android:text="@{viewModel.negative}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.negative.isEmpty() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@id/bt_positive"
+            app:layout_constraintTop_toTopOf="@id/bt_positive"
+            app:layout_goneMarginEnd="10dp"
+            tools:text="취소" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

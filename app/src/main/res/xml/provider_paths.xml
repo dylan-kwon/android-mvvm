@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+
+    <!-- 내부 저장소 -->
+    <files-path
+        name="internal_root"
+        path="./" />
+
+    <!-- 외부 저장소 -->
+    <external-path
+        name="external_root"
+        path="./" />
+
+    <!-- 내부 캐시 저장소 -->
+    <cache-path
+        name="internal_cache_root"
+        path="./" />
+
+    <!-- 외부 캐시 저장소 -->
+    <external-cache-path
+        name="external_cache_root"
+        path="./" />
+
+    <!-- 내부 캐시 파일 저장소 -->
+    <cache-path
+        name="internal_cache_files"
+        path="./files" />
+
+    <!-- 외부 캐시 파일 저장소 -->
+    <external-cache-path
+        name="external_cache_files"
+        path="./files" />
+
+    <!-- 내부 Retrofit 캐시 파일 저장소 -->
+    <cache-path
+        name="internal_cache_files"
+        path="./retrofit" />
+
+    <!-- 외부 Retrofit 캐시 파일 저장소 -->
+    <external-cache-path
+        name="external_cache_files"
+        path="./retrofit" />
+
+</paths>

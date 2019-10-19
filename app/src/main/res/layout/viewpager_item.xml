@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewHolder"
+            type="dylan.kwon.mvvm.ui.screen.viewpager.ViewPagerHolder" />
+
+        <variable
+            name="viewModel"
+            type="dylan.kwon.mvvm.ui.screen.viewpager.ViewPagerHolder.ViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> viewModel.printUserInfo(viewHolder.user)}"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="3dp"
+        tools:background="@color/color_ffffff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:contentDescription="@string/image_content_description"
+                app:srcCompat="@drawable/ic_oval_person" />
+
+            <dylan.kwon.mvvm.util.base.view.BaseTextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:maxLines="1"
+                android:text="@{viewHolder.user.name}"
+                android:textColor="@color/color_000000"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                tools:text="USER_NAME" />
+
+            <dylan.kwon.mvvm.util.base.view.BaseTextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:maxLines="1"
+                android:text="@{viewHolder.user.phone}"
+                android:textColor="@color/color_000000"
+                android:textSize="16sp"
+                tools:text="USER_PHONE" />
+
+            <dylan.kwon.mvvm.util.base.view.BaseTextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:text="@{viewHolder.user.email}"
+                android:textColor="@color/color_000000"
+                android:textSize="16sp"
+                tools:text="USER_EMAIL" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

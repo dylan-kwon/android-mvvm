@@ -1,0 +1,236 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    def IS_RELEASE = false
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "dylan.kwon.mvvm"
+
+        minSdkVersion 21
+        targetSdkVersion 29
+
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+
+        manifestPlaceholders = [
+                manifestApplicationId: "${applicationId}"
+        ]
+
+        resConfigs "ko", "en"
+
+        multiDexEnabled false
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/roomSchemas".toString()]
+            }
+        }
+    }
+
+    signingConfigs {
+        keystore {
+            def keystorePropertiesFile = rootProject.file("./app/keystore/keystore.properties")
+            def keystoreProperties = new Properties()
+            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            aaptOptions.cruncherEnabled = true
+
+            signingConfig signingConfigs.keystore
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            createApk()
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            aaptOptions.cruncherEnabled = false
+
+            versionNameSuffix "-debug"
+            applicationIdSuffix ".debug"
+
+            signingConfig signingConfigs.keystore
+
+            createApk()
+        }
+    }
+
+    android.variantFilter { variant ->
+        def buildName = variant.buildType.name
+
+        if (IS_RELEASE && buildName != 'release') {
+            variant.setIgnore(true)
+
+        } else if (!IS_RELEASE && buildName != 'debug') {
+            variant.setIgnore(true)
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    afterEvaluate {
+        tasks.matching {
+            it.name.startsWith('dex')
+        }.each { dx ->
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = []
+            }
+            dx.additionalParameters += '--multi-dex'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+    }
+}
+
+def createApk() {
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFileName.endsWith('.apk')) {
+                def date = new Date().format('yyyyMMddHHmm')
+
+                def dir = "./apk/" + variant.versionName + "(" + variant.versionCode + ')'
+                def apk = variant.applicationId + "-" + variant.versionName + "(" + variant.versionCode + ")" + "-" + date + ".apk"
+
+                outputFileName = new File(dir, apk)
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    kapt "androidx.databinding:databinding-compiler:$gradle_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Androidx
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.activity:activity-ktx:1.0.0'
+    implementation 'androidx.fragment:fragment-ktx:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0-beta05"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+
+    // Support
+    implementation 'com.google.android:flexbox:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // AAC - ViewModel and LiveData and Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.1.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    // AAC - Room
+    kapt "androidx.room:room-compiler:2.2.0"
+    implementation "androidx.room:room-runtime:2.2.0"
+    implementation "androidx.room:room-rxjava2:2.2.0"
+    testImplementation "androidx.room:room-testing:2.2.0"
+
+    // RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+    // Glide
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation("com.github.bumptech.glide:recyclerview-integration:4.10.0") {
+        transitive = false
+    }
+
+    // Moshi
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
+
+    // Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.6.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.1'
+
+    // Koin
+    implementation "org.koin:koin-core:2.0.1"
+    implementation "org.koin:koin-android:2.0.1"
+    implementation "org.koin:koin-androidx-ext:2.0.1"
+    implementation "org.koin:koin-androidx-scope:2.0.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+    testImplementation "org.koin:koin-test:2.0.1"
+
+    // Permission
+    implementation 'gun0912.ted:tedpermission-rx2:2.2.2'
+
+    // ActivityResult
+    implementation 'gun0912.ted:tedonactivityresult-rx2:1.0.6'
+
+    // Memory Leak
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
+    implementation 'com.squareup.leakcanary:leakcanary-object-watcher-android:2.0-beta-3'
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'io.mockk:mockk:1.8.6'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

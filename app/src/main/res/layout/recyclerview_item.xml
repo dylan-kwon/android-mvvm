@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewHolder"
+            type="dylan.kwon.mvvm.ui.screen.recyclerview.RecyclerViewHolder" />
+
+        <variable
+            name="viewModel"
+            type="dylan.kwon.mvvm.ui.screen.recyclerview.RecyclerViewHolder.ViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> viewModel.printUserInfo(viewHolder.user)}"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="3dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="15dp"
+                android:contentDescription="@string/image_content_description"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_oval_person" />
+
+            <dylan.kwon.mvvm.util.base.view.BaseTextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewHolder.user.name}"
+                android:textColor="@color/color_000000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tv_phone"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toTopOf="@id/image"
+                tools:text="USER_NAME" />
+
+            <dylan.kwon.mvvm.util.base.view.BaseTextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewHolder.user.phone}"
+                android:textColor="@color/color_000000"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_email"
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:text="USER_PHONE" />
+
+            <dylan.kwon.mvvm.util.base.view.BaseTextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewHolder.user.email}"
+                android:textColor="@color/color_000000"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintStart_toStartOf="@id/tv_phone"
+                app:layout_constraintTop_toBottomOf="@id/tv_phone"
+                tools:text="USER_EMAIL" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

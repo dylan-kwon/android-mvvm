@@ -1,0 +1,32 @@
+<resources>
+
+    <string name="app_name">Android-MVVM</string>
+
+    <string name="close">닫기</string>
+    <string name="copy">복사</string>
+    <string name="error">오류</string>
+    <string name="setting">설정</string>
+    <string name="confirm">확인</string>
+
+    <string name="recycler_view">RecyclerView</string>
+    <string name="view_pager">ViewPager</string>
+    <string name="fragment">Fragment</string>
+    <string name="dialog">Dialog</string>
+    <string name="bottom_sheet_dialog">BottomSheetDialog</string>
+    <string name="toast">Toast</string>
+    <string name="snackbar">Snackbar</string>
+    <string name="child">child</string>
+
+    <string name="on_click_toast">onClick Toast</string>
+    <string name="on_click_snackbar">onClick Snackbar</string>
+
+    <!-- 이미지 디스크립션 -->
+    <string name="image_content_description">error.</string>
+
+    <!-- 퍼미션 요청 메시지-->
+    <string name="permission_denied_message">[설정] > [권한]에서 권한을 허용해 주세요</string>
+
+    <!-- 네트워크 오류 메시지 -->
+    <string name="network_error_message">네트워크에 연결할 수 없습니다.\n네트워크 상태 확인 후 다시 시도해주세요.</string>
+
+</resources>

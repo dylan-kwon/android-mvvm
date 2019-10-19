@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- BaseTabLayout -->
+    <declare-styleable name="BaseTabLayout">
+        <attr name="tabMargin" format="dimension|reference" />
+    </declare-styleable>
+
+    <!-- NestedCoordinatorLayout -->
+    <declare-styleable name="NestedCoordinatorLayout">
+        <attr name="preScrollUp" format="integer">
+            <enum name="both" value="0" />
+            <enum name="parentFirst" value="1" />
+            <enum name="childFirst" value="2" />
+        </attr>
+
+        <attr name="preScrollDown" format="integer">
+            <enum name="both" value="0" />
+            <enum name="parentFirst" value="1" />
+            <enum name="childFirst" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!-- TabIndicator -->
+    <declare-styleable name="TabIndicator">
+        <attr name="indicator_margin" format="dimension|reference" />
+        <attr name="indicator_width" format="dimension|reference" />
+        <attr name="indicator_height" format="dimension|reference" />
+        <attr name="indicator_drawable" format="reference" />
+    </declare-styleable>
+
+    <!-- BaseRecyclerView -->
+    <declare-styleable name="BaseRecyclerView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <!-- BaseViewPager -->
+    <declare-styleable name="BaseViewPager">
+        <attr name="pageMargin" format="dimension|reference" />
+        <attr name="swipeEnabled" format="boolean" />
+        <attr name="sensitivityMultiplier" format="float" />
+        <attr name="orientation" format="enum">
+            <enum name="vertical" value="1" />
+            <enum name="horizontal" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

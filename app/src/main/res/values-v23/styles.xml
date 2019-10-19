@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- WhiteStatusBar Theme -->
+    <style name="AppTheme.WhiteStatusBar" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/color_ffffff</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+</resources>
